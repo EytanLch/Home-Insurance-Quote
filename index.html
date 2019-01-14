@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="./pics/logo_sia_partners_grey.png">
+  <title>Sia Partners</title>
+
+
+  <!-- ‘Singapore Choropleth’ dependencies -->
+
+  <script src="js/topojson.min.js"></script>
+  <script src="js/d3.min.js"></script>
+  <script src="js/leaflet.js"></script>
+  <script src="js/awesomplete.min.js"></script>
+  <link href="css/awesomplete.min.css" rel="stylesheet" />
+  <link href="css/leaflet.css" rel="stylesheet" />
+  <link href="css/bootstrap.min.css" rel="stylesheet" />
+
+
+  <!-- ‘Singapore Choropleth’ script and style -->
+
+  <script src="singapore.js"></script>
+  <link href="singapore.css" rel="stylesheet" />
+
+  <!-- Google analytics -->
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-112861430-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-112861430-1');
+</script>
+
+</head>
+
+<body>
+
+  <!-- Div containing the future map -->
+
+  <p style="display:none">
+    Sia Partners application. One week one bot. Benchmark Insurance Singapore.
+  </p>
+
+  <div style="width:100%; background-color: #3C3C3C; color: white; font-size:20px; padding-left:50px; padding-top:12px; padding-bottom:12px; font-weight:300; font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; height: 50px; position:fixed; z-index:9999">
+  <div class="col-md-3">
+    Home Insurance Benchmark
+  </div>
+  <div style="text-align:right; margin-top:-5px" class="col-md-7">
+    <a href="http://datascience-lab.sia-partners.com" style="padding-bottom:5px"><b><font size=5 face='calibri' color="white">Data Science Lab</font></b></a>
+  </div>
+  <a href="http://sia-partners.com/digital-assets/data-science-lab" style="padding-bottom:0px">
+    <img src="./pics/logo_sia_partners_grey.png" title="Sia Partners" width="165px" height="30px" align="right" style="margin-right:20px"/>
+  </a>
+</div>
+    
+    <div id="map"></div>
+
+  <script>
+
+   // Create the map with Leaflet
+
+    var map = L.map("map",{ center: [1.3709, 103.8345],
+                            zoom: 11,
+                            minZoom: 1,
+                            maxZoom: 20,
+                            scrollWheelZoom: 0 })
+                .addLayer(new L.tileLayer('https://cartodb-basemaps-b.global.ssl.fastly.net/light_nolabels/{z}/{x}/{y}.png', { subdomains: 'abcd', detectRetina: 1 }));
+    
+
+
+    // Create the choropleth with layers
+
+    var choropleth = new singapore(map,
+                          {
+                             stat: 'mean_true',
+                             file: 'data/stats/data_max_new_coeff.csv',
+                            title: ['Price max',''],
+                           domain: [90,130,170,210,250],
+                            range: ['#440154','#3b528b','#21908c','#5dc863','#fde725'],
+                             unit: '$',
+                             plus: ''
+                          },
+                          {
+                             stat: 'mean_true',
+                             file: 'data/stats/data_min_new_coeff.csv',
+                            title: ['Price min',''],
+                           domain: [40,60,80,100,120,140,160,180,200,220,240],
+                            range: ['#440154','#3b528b','#21908c','#5dc863','#fde725'],
+                             unit: '$',
+                             plus: ''
+                          }
+                        );
+   
+  
+
+  </script>
+
+</body>
+</html>
